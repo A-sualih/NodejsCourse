@@ -13,7 +13,11 @@ router.post(
   ],
   placesControllers.createPlace
 );
-router.patch("/:pid", placesControllers.updatePlace);
+router.patch(
+  "/:pid",
+  [check("title").not().isEmpty(), check("description").isLength({ min: 10 })],
+  placesControllers.updatePlace
+);
 router.delete("/:pid", placesControllers.deletePlace);
 // if the creator property in aplace holds the user id thats part of the url it's pthe place which i
 module.exports = router;
