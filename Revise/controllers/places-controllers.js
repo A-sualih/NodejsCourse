@@ -1,5 +1,6 @@
 const HttpError=require('../models/http-error')
 const { v4: uuidv4 } = require("uuid");
+const {validationResult}=require("express-validator")
 let DUMMY_PLACES=[
     {
     id:"p1",
@@ -41,6 +42,10 @@ return next(new HttpError("Could not find a place for the provided user id,",404
    res.json({places})
 }
 const createPlace = (req, res, next) => {
+    const errors=validationResult(req)
+    if(!errors.isEmpty()){
+        throw new HttpError("Inalid inputs passed , please check your data",422)
+    }
   const { title, description, location, address, creator } = req.body;
 
   const createdPlace = {
