@@ -40,19 +40,23 @@ return next(new HttpError("Could not find a place for the provided user id,",404
 }
    res.json({places})
 }
-const createPlace=(req,res,next)=>{
-const {titel,description,location,address,creator}=req.body;
-const createdPlace={
-    id:uuidv4(),
-    titel,
+const createPlace = (req, res, next) => {
+  const { title, description, location, address, creator } = req.body;
+
+  const createdPlace = {
+    id: uuidv4(),
+    title,         // FIXED
     description,
     location,
     address,
     creator
-}
-DUMMY_PLACES.push((createdPlace))
-res.status(200).json({place: createPlace})
-}
+  };
+
+  DUMMY_PLACES.push(createdPlace);
+
+  res.status(201).json({ place: createdPlace }); // FIXED
+};
+
 const updatePlace=(req,res,next)=>{
     const {title,description}=req.body;
     const placeId=req.params.pid;
