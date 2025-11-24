@@ -7,7 +7,14 @@ app.use((req, res, next) => {
   console.log("Time", Date.now());
   next();
 });
-const users = [];
+const users = [{
+  id:0,
+  name:"Ahmed Sualih"
+},
+{
+  id:1,
+  name:"Kurulus Osman"
+}];
 app.get("/users",usersController.getUsers);
 app.get("/users/:pid",usersController.getuser);
 app.use((req,res,next)=>{

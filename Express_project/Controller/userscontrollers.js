@@ -1,4 +1,4 @@
-const allUsers=[]
+const allUsers=require('../models/freindsmodel')
 const postUsers=(req, res) => {
   const { users } = req.body;
 
