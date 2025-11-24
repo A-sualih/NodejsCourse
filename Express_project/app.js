@@ -23,7 +23,6 @@ app.post("/users", (req, res) => {
     place: allUsers 
   });
 });
-
 // ✅ GET route - retrieve all users
 app.get("/users", (req, res) => {
   res.status(200).json({ 
