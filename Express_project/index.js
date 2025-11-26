@@ -1,3 +1,4 @@
+const path=require("path")
 const express = require("express");
 const routers = require("./routes/usersrouter");
 const messagerouters = require("./routes/messagesrouter");
@@ -17,11 +18,11 @@ const users = [
     name: "Kurulus Osman",
   },
 ];
-
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.baseUrl} ${req.url}`);
   next();
 });
+app.use('/site', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use("/users", routers);
 app.use("/message", messagerouters);
