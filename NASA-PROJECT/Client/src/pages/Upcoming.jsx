@@ -1,0 +1,59 @@
+import { useMemo } from "react";
+
+import Clickable from "../components/Clickable";
+
+const Upcoming = props => {
+  const { 
+    entered,
+    launches,
+    abortLaunch,
+  } = props;
+
+  const tableBody = useMemo(() => {
+    return launches?.filter((launch) => launch.upcoming)
+      .map((launch) => {
+        return (
+          <tr key={String(launch.flightNumber)}>
+            <td>
+              <Clickable style={{ color: "red" }}>
+                <button onClick={() => abortLaunch(launch.flightNumber)} style={{ background: 'transparent', border: 'none', color: 'red', fontSize: 18, cursor: 'pointer' }}>
+                  ✖
+                </button>
+              </Clickable>
+            </td>
+          <td>{launch.flightNumber}</td>
+          <td>{new Date(launch.launchDate).toDateString()}</td>
+          <td>{launch.mission}</td>
+          <td>{launch.rocket}</td>
+          <td>{launch.target}</td>
+          </tr>
+        );
+      });
+  }, [launches, abortLaunch]);
+
+  return (
+    <section id="upcoming">
+      <p>Upcoming missions including both SpaceX launches and newly scheduled Zero to Mastery rockets.</p>
+      <p style={{ color: 'orange' }}>Warning! Clicking on the ✖ aborts the mission.</p>
+      <div>
+        <table style={{ tableLayout: "fixed" }}>
+        <thead>
+          <tr>
+            <th style={{width: "3rem"}}></th>
+            <th style={{width: "3rem"}}>No.</th>
+            <th style={{width: "10rem"}}>Date</th>
+            <th style={{width: "11rem"}}>Mission</th>
+            <th style={{width: "11rem"}}>Rocket</th>
+            <th>Destination</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableBody}
+        </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+ 
+export default Upcoming;
