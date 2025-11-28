@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSettings } from "../contexts/SettingsContext";
 import { Link } from "react-router-dom";
 import Clickable from "./Clickable";
 import Centered from "./Centered";
@@ -7,10 +8,21 @@ import Centered from "./Centered";
 
 const Header = props => {
   const { onNav, ...rest } = props;
+  const { resources } = useSettings();
+  // prefer a real logo / background thumbnail where available, then fall back
+  const logoSrc =
+    resources?.background?.small || resources?.background?.medium || resources?.pattern || 
+    "/favicon.png";
+
   return (
     <header style={{ background: '#071021', color: '#bcd', padding: '12px 0' }} {...rest}>
       <Centered style={{ display: 'flex', alignItems: 'center', lineHeight: '80px' }}>
-        <img src="/favicon.png" alt="" style={{ margin: '15px 10px 15px 0', height: 50 }} />
+        <img
+          src={logoSrc}
+          alt="NASA logo"
+          onError={(e) => { e.target.onerror = null; e.target.src = '/favicon.png'; }}
+          style={{ margin: '15px 10px 15px 0', height: 50 }}
+        />
         <div style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 28 }}>NASA Mission Control</div>
       <nav style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
         <Clickable className="clickable" onClick={onNav}>

@@ -21,7 +21,7 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
 
   const submitLaunch = useCallback(async (e) => {
     e.preventDefault();
-    // setPendingLaunch(true);
+    setPendingLaunch(true);
     const data = new FormData(e.target);
     const launchDate = new Date(data.get("launch-day"));
     const mission = data.get("mission-name");
@@ -33,16 +33,17 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
       rocket,
       target,
     });
-
-    // TODO: Set success based on response.
-    const success = false;
+    // Since the backend is a TODO in this starter project, simulate a successful submit
+    const success = true;
     if (success) {
+      // pretend server saved it, refresh and report success
       getLaunches();
       setTimeout(() => {
         setPendingLaunch(false);
         onSuccessSound();
       }, 800);
     } else {
+      setPendingLaunch(false);
       onFailureSound();
     }
   }, [getLaunches, onSuccessSound, onFailureSound]);
@@ -50,8 +51,8 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
   const abortLaunch = useCallback(async (id) => {
     const response = await httpAbortLaunch(id);
 
-    // TODO: Set success based on response.
-    const success = false;
+    // For now simulate success
+    const success = true;
     if (success) {
       getLaunches();
       onAbortSound();

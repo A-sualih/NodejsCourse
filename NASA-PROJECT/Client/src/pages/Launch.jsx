@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useSettings } from "../contexts/SettingsContext";
 import Clickable from "../components/Clickable";
 
 const Launch = props => {
@@ -10,6 +11,18 @@ const Launch = props => {
 
   const today = new Date().toISOString().split("T")[0];
 
+  const { players } = useSettings();
+
+  const handleSubmit = (e) => {
+    // trigger deploy sound first (if available) then let submit handler run
+    players?.deploy?.play?.();
+    props.submitLaunch(e);
+  };
+
+  const onTyping = () => {
+    players?.typing?.play?.();
+  };
+
   return (
     <section id="launch">
       <p>Schedule a mission launch for interstellar travel to one of the Kepler Exoplanets.</p>
@@ -19,13 +32,13 @@ const Launch = props => {
       <li>Effective stellar flux &gt; 0.36 times Earth's value and &lt; 1.11 times Earth's value</li>
     </ul>
 
-    <form onSubmit={props.submitLaunch} style={{display: "inline-grid", gridTemplateColumns: "auto auto", gridGap: "10px 20px"}}>
+    <form onSubmit={handleSubmit} style={{display: "inline-grid", gridTemplateColumns: "auto auto", gridGap: "10px 20px"}}>
       <label htmlFor="launch-day">Launch Date</label>
       <input type="date" id="launch-day" name="launch-day" min={today} max="2040-12-31" defaultValue={today} />
       <label htmlFor="mission-name">Mission Name</label>
-      <input type="text" id="mission-name" name="mission-name" />
+      <input type="text" id="mission-name" name="mission-name" onKeyDown={onTyping} />
       <label htmlFor="rocket-name">Rocket Type</label>
-      <input type="text" id="rocket-name" name="rocket-name" defaultValue="Explorer IS1" />
+      <input type="text" id="rocket-name" name="rocket-name" defaultValue="Explorer IS1" onKeyDown={onTyping} />
       <label htmlFor="planets-selector">Destination Exoplanet</label>
       <select id="planets-selector" name="planets-selector">
         {selectorBody}
