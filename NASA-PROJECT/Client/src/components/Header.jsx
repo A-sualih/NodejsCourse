@@ -14,22 +14,22 @@ const Header = props => {
         <div style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 28 }}>NASA Mission Control</div>
       <nav style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
         <Clickable className="clickable" onClick={onNav}>
-          <a style={{ color: '#bcd', textDecoration: 'none', padding: '6px 8px' }} href="#/launch">
-            <i className="material-icons" style={{ marginRight: 6 }}>check_circle_outline</i>
+          <Link style={{ color: '#bcd', textDecoration: 'none', padding: '6px 8px' }} to="/launch">
+            <i className="material-icons" style={{ marginRight: 6 }}></i>
             Launch
-          </a>
+          </Link>
         </Clickable>
         <Clickable className="clickable" onClick={onNav}>
-          <a style={{ color: '#bcd', textDecoration: 'none', padding: '6px 8px' }} href="#/upcoming">
-            <i className="material-icons" style={{ marginRight: 6 }}>update</i>
+          <Link style={{ color: '#bcd', textDecoration: 'none', padding: '6px 8px' }} to="/upcoming">
+            <i className="material-icons" style={{ marginRight: 6 }}></i>
             Upcoming
-          </a>
+          </Link>
         </Clickable>
         <Clickable className="clickable" onClick={onNav}>
-          <a style={{ color: '#bcd', textDecoration: 'none', padding: '6px 8px' }} href="#/history">
-            <i className="material-icons" style={{ marginRight: 6 }}>history</i>
+          <Link style={{ color: '#bcd', textDecoration: 'none', padding: '6px 8px' }} to="/history">
+            <i className="material-icons" style={{ marginRight: 6 }}></i>
             History
-          </a>
+          </Link>
         </Clickable>
       </nav>
     </Centered>
