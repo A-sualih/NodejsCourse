@@ -1,5 +1,6 @@
 const {parse} = require("csv-parse");
 const fs = require('fs');
+const planets = require("../NASA-PROJECT/Server/src/models/planets-model");
 
 const habitablePlanets = [];
 // More lenient criteria
@@ -31,3 +32,6 @@ console.log(habitablePlanets.map((planet)=>{
 console.log(`${habitablePlanets.length} habitable planets found`)
     console.log("Done");
   });
+  module.exports={
+    planets:habitablePlanets
+  }

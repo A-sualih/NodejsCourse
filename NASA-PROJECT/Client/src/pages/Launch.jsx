@@ -4,9 +4,14 @@ import Clickable from "../components/Clickable";
 
 const Launch = props => {
   const selectorBody = useMemo(() => {
-    return props.planets?.map(planet => 
+    const list = Array.isArray(props.planets) ? props.planets : [];
+    if (list.length === 0) {
+      return <option disabled>No planets available</option>;
+    }
+
+    return list.map(planet => (
       <option value={planet.kepler_name} key={planet.kepler_name}>{planet.kepler_name}</option>
-    );
+    ));
   }, [props.planets]);
 
   const today = new Date().toISOString().split("T")[0];
