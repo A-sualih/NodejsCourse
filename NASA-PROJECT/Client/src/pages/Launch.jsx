@@ -8,7 +8,6 @@ const Launch = props => {
     if (list.length === 0) {
       return <option disabled>No planets available</option>;
     }
-
     return list.map(planet => (
       <option value={planet.kepler_name} key={planet.kepler_name}>{planet.kepler_name}</option>
     ));

@@ -1,0 +1,14 @@
+{
+  "name": "nasa-project",
+
+
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd server && npm run watch",
+    "frontend": "cd client && npm start"
+  
+},
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
