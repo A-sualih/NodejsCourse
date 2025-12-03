@@ -14,7 +14,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use(planetsRouter);
-app.use(lauchesRouter);
+app.use('/lauches',lauchesRouter);
 
 app.use((req, res, next) => {
   // Skip if request is for API routes
