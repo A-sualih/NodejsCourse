@@ -34,7 +34,7 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
       target,
     });
     // Since the backend is a TODO in this starter project, simulate a successful submit
-    const success = true;
+    const success = response.ok;
     if (success) {
       // pretend server saved it, refresh and report success
       getLaunches();

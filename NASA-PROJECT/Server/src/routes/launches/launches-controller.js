@@ -8,17 +8,17 @@ function httpgetAllLauches(req,res){
 }
 function httpAddNewLaunch(req,res){
   const launch=req.body;
-  if(!launch.missin|| !launch.rocket || !launch.lauchDate || !launch.destination){
+  if(!launch.mission|| !launch.rocket || !launch.launchDate || !launch.target){
     return res.status(400).json({
     error:"missing required launch property"
     })
   }
-  launch.lauchDate=new Date(launch.lauchDate);
- if(isNaN(launch.lauchDate)){
-  return res.status(400).json({
-    error:"invalid launch date",
-  })
- }
+  // launch.lauchDate=new Date(launch.lauchDate);
+//  if(isNaN(launch.lauchDate)){
+//   return res.status(400).json({
+//     error:"invalid launch date",
+//   })
+//  }
   addNewLaucnh(launch)
     return res.status(201).json(launch)
 }
