@@ -23,7 +23,18 @@ lauches.set(latestFightNumber,Object.assign(launch,{
     flightNumber:latestFightNumber,
 }));
 }
+function existsLaunchWithId(launch){
+return lauches.has(launch)
+}
+function abortLaunchById(launchId){
+const aborted=lauches.get(launchId);
+aborted.upcoming=false;
+aborted.success=false;
+return aborted;
+}
 module.exports={
    getAllLauches,
-   addNewLaucnh
+   addNewLaucnh,
+   existsLaunchWithId,
+   abortLaunchById
 }
