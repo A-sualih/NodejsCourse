@@ -3,9 +3,9 @@ const { getAllLauches, abortLaunchById } = require("../../models/Launches-model"
 const { addNewLaucnh } = require("../../models/Launches-model");
 const {existsLaunchWithId} =require("../../models/Launches-model")
 
-function httpgetAllLauches(req,res){
+async function httpgetAllLauches(req,res){
 //    return res.status(200).json(Array.from(lauches.values()));
-   return res.status(200).json(getAllLauches());
+   return res.status(200).json(await getAllLauches());
 }
 function httpAddNewLaunch(req,res){
   const launch=req.body;

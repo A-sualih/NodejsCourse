@@ -9,16 +9,10 @@ mongoose.connection.once("open",()=>{
     console.log("MongoDb connection Ready to go")
 })
 mongoose.connection.on("error",(err)=>{
-    console.err(err);
+console.error(err)
 })
 async function startServer() {
    await mongoose.connect(MONGO_URL);
-//       await mongoose.connect(MONGO_URL, {
-//     useNewUrlParser: true,
-//     useFindAndModify: false,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true,
-//   })
     await loadPlanetsData();
 server.listen(PORT,()=>{
     console.log(`Listening on port ${PORT}...`)
