@@ -1,7 +1,7 @@
 const lauchesDatabase=require("./launches.mongo")
 const planets=require("./Planets.mongo")
+const DEFAULT_FLIGHT_NUMBER=100;
 const lauches=new Map();
-let latestFightNumber=100;
 const launch={
     flightNumber:100,
     mission:"kepler Exploration X",
@@ -33,17 +33,36 @@ await lauchesDatabase.updateOne({
     upsert:true
 })
 }
-function addNewLaucnh(launch){
-    latestFightNumber++;
-lauches.set(latestFightNumber,Object.assign(launch,{
+async function scheduleNewLaunch(launch){
+   const newFlightNumber=await getLatestFlightNumber()+1
+const newLaunch=Object.assign(launch,{
     success:true,
     upcoming:true,
-    customer:['Zero to Master',"NASA"],
-    flightNumber:latestFightNumber,
-}));
+    customer:['Zero to Matery',"NASA"],
+    flightNumber:newFlightNumber,
+})
+await saveLaunch(newLaunch);
 }
-function existsLaunchWithId(launch){
-return lauches.has(launch)
+// function addNewLaucnh(launch){
+//     latestFightNumber++;
+// lauches.set(latestFightNumber,Object.assign(launch,{
+//     success:true,
+//     upcoming:true,
+//     customer:['Zero to Master',"NASA"],
+//     flightNumber:latestFightNumber,
+// }));
+// }
+async function getLatestFlightNumber() {
+    const latestLaunch=await lauchesDatabase
+    .findOne()
+    .sort('_flightNumber');
+    if(!latestLaunch){
+        return DEFAULT_FLIGHT_NUMBER
+    }
+    return latestLaunch.flightNumber;
+}
+function existsLaunchWithId(launchId){
+return lauches.has(launchId)
 }
 function abortLaunchById(launchId){
 const aborted=lauches.get(launchId);
@@ -53,7 +72,7 @@ return aborted;
 }
 module.exports={
    getAllLauches,
-   addNewLaucnh,
+   scheduleNewLaunch,
    existsLaunchWithId,
    abortLaunchById
 }
