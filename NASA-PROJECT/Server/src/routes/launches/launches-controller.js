@@ -21,8 +21,10 @@ async function httpAddNewLaunch(req,res){
 //   })
 //  }
   await scheduleNewLaunch(launch)
+  console.log(launch)
     return res.status(201).json(launch)
 }
+
 function httpAbortLaunch(req,res){
 const launchId=Number(req.params.id);
 if(!existsLaunchWithId(launchId)){

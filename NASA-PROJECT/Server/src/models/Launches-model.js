@@ -27,7 +27,7 @@ const planet=await planets.findOne({
 if(!planet){
     throw new Error("No matching planet");
 }
-await lauchesDatabase.updateOne({
+await lauchesDatabase.findOneAndUpdate({
     flightNumber:launch.flightNumber,
 },launch,{
     upsert:true
