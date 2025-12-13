@@ -2,8 +2,7 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const morgan = require("morgan");
-const planetsRouter = require("./routes/planets/planets-router");
-const lauchesRouter = require("./routes/launches/launches-router");
+const api=require("./routes/api")
 const app = express();
 app.use(
   cors({
@@ -13,8 +12,7 @@ app.use(
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
-app.use(planetsRouter);
-app.use('/lauches',lauchesRouter);
+app.use("/v1",api)
 
 app.use((req, res, next) => {
   // Skip if request is for API routes
