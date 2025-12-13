@@ -61,14 +61,22 @@ async function getLatestFlightNumber() {
     }
     return latestLaunch.flightNumber;
 }
-function existsLaunchWithId(launchId){
-return lauches.has(launchId)
+async function existsLaunchWithId(launchId){
+return await lauchesDatabase.findOne({
+    flightNumber:launchId
+})
 }
-function abortLaunchById(launchId){
-const aborted=lauches.get(launchId);
-aborted.upcoming=false;
-aborted.success=false;
-return aborted;
+async function abortLaunchById(launchId){
+return await lauchesDatabase.updateOne({
+    flightNumber:launchId
+},{
+    upcoming:false,
+    success:false,
+})
+// const aborted=lauches.get(launchId);
+// aborted.upcoming=false;
+// aborted.success=false;
+// return aborted;
 }
 module.exports={
    getAllLauches,
